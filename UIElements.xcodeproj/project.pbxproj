@@ -10,6 +10,7 @@
 		3B90005F204DE2C10018CAE5 /* UIElements.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B900055204DE2C10018CAE5 /* UIElements.framework */; };
 		3B900064204DE2C10018CAE5 /* UIElementsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B900063204DE2C10018CAE5 /* UIElementsTests.swift */; };
 		3B900066204DE2C10018CAE5 /* UIElements.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B900058204DE2C10018CAE5 /* UIElements.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3BA139FB204DE40500213EB6 /* TwoStatesButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA139FA204DE40500213EB6 /* TwoStatesButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 		3B90005E204DE2C10018CAE5 /* UIElementsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UIElementsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B900063204DE2C10018CAE5 /* UIElementsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIElementsTests.swift; sourceTree = "<group>"; };
 		3B900065204DE2C10018CAE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3BA139FA204DE40500213EB6 /* TwoStatesButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoStatesButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 		3B900057204DE2C10018CAE5 /* UIElements */ = {
 			isa = PBXGroup;
 			children = (
+				3BA13A0D204DE5BF00213EB6 /* Buttons */,
 				3B900058204DE2C10018CAE5 /* UIElements.h */,
 				3B900059204DE2C10018CAE5 /* Info.plist */,
 			);
@@ -84,6 +87,14 @@
 				3B900065204DE2C10018CAE5 /* Info.plist */,
 			);
 			path = UIElementsTests;
+			sourceTree = "<group>";
+		};
+		3BA13A0D204DE5BF00213EB6 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				3BA139FA204DE40500213EB6 /* TwoStatesButton.swift */,
+			);
+			path = Buttons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,6 +159,7 @@
 				TargetAttributes = {
 					3B900054204DE2C10018CAE5 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 					3B90005D204DE2C10018CAE5 = {
@@ -196,6 +208,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BA139FB204DE40500213EB6 /* TwoStatesButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,6 +347,7 @@
 		3B90006A204DE2C10018CAE5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -347,6 +361,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tipsandtricks.UIElements;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -355,6 +370,7 @@
 		3B90006B204DE2C10018CAE5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -376,6 +392,7 @@
 		3B90006D204DE2C10018CAE5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JH6R8SSABL;
 				INFOPLIST_FILE = UIElementsTests/Info.plist;
@@ -390,6 +407,7 @@
 		3B90006E204DE2C10018CAE5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JH6R8SSABL;
 				INFOPLIST_FILE = UIElementsTests/Info.plist;
