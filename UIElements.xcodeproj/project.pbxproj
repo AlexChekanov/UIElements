@@ -7,13 +7,41 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B726851204F162C004515F2 /* UIExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B72684B204F1592004515F2 /* UIExtensions.framework */; };
 		3B90005F204DE2C10018CAE5 /* UIElements.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B900055204DE2C10018CAE5 /* UIElements.framework */; };
 		3B900064204DE2C10018CAE5 /* UIElementsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B900063204DE2C10018CAE5 /* UIElementsTests.swift */; };
-		3B900066204DE2C10018CAE5 /* UIElements.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B900058204DE2C10018CAE5 /* UIElements.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3BA139FB204DE40500213EB6 /* TwoStatesButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA139FA204DE40500213EB6 /* TwoStatesButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		3B72684A204F1592004515F2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3B726845204F1591004515F2 /* UIExtensions.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3BA13A18204DE5E200213EB6;
+			remoteInfo = UIExtensions;
+		};
+		3B72684C204F1592004515F2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3B726845204F1591004515F2 /* UIExtensions.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3BA13A21204DE5E300213EB6;
+			remoteInfo = UIExtensionsTests;
+		};
+		3B72685C204F1729004515F2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3B726857204F1729004515F2 /* GeneralExtensions.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3B87BA48204DF24300812BAE;
+			remoteInfo = GeneralExtensions;
+		};
+		3B72685E204F1729004515F2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3B726857204F1729004515F2 /* GeneralExtensions.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3B87BA51204DF24300812BAE;
+			remoteInfo = GeneralExtensionsTests;
+		};
 		3B900060204DE2C10018CAE5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3B90004C204DE2C10018CAE5 /* Project object */;
@@ -24,8 +52,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3B726845204F1591004515F2 /* UIExtensions.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UIExtensions.xcodeproj; path = ../UIExtensions/UIExtensions.xcodeproj; sourceTree = "<group>"; };
+		3B726857204F1729004515F2 /* GeneralExtensions.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GeneralExtensions.xcodeproj; path = ../GeneralExtensions/GeneralExtensions.xcodeproj; sourceTree = "<group>"; };
 		3B900055204DE2C10018CAE5 /* UIElements.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UIElements.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B900058204DE2C10018CAE5 /* UIElements.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIElements.h; sourceTree = "<group>"; };
 		3B900059204DE2C10018CAE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3B90005E204DE2C10018CAE5 /* UIElementsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UIElementsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B900063204DE2C10018CAE5 /* UIElementsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIElementsTests.swift; sourceTree = "<group>"; };
@@ -38,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B726851204F162C004515F2 /* UIExtensions.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,12 +82,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B726844204F1591004515F2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3B726857204F1729004515F2 /* GeneralExtensions.xcodeproj */,
+				3B726845204F1591004515F2 /* UIExtensions.xcodeproj */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3B726846204F1591004515F2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3B72684B204F1592004515F2 /* UIExtensions.framework */,
+				3B72684D204F1592004515F2 /* UIExtensionsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3B726858204F1729004515F2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3B72685D204F1729004515F2 /* GeneralExtensions.framework */,
+				3B72685F204F1729004515F2 /* GeneralExtensionsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		3B90004B204DE2C10018CAE5 = {
 			isa = PBXGroup;
 			children = (
 				3B900057204DE2C10018CAE5 /* UIElements */,
 				3B900062204DE2C10018CAE5 /* UIElementsTests */,
 				3B900056204DE2C10018CAE5 /* Products */,
+				3B726844204F1591004515F2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,7 +132,6 @@
 			isa = PBXGroup;
 			children = (
 				3BA13A0D204DE5BF00213EB6 /* Buttons */,
-				3B900058204DE2C10018CAE5 /* UIElements.h */,
 				3B900059204DE2C10018CAE5 /* Info.plist */,
 			);
 			path = UIElements;
@@ -104,7 +161,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B900066204DE2C10018CAE5 /* UIElements.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,6 +234,16 @@
 			mainGroup = 3B90004B204DE2C10018CAE5;
 			productRefGroup = 3B900056204DE2C10018CAE5 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 3B726858204F1729004515F2 /* Products */;
+					ProjectRef = 3B726857204F1729004515F2 /* GeneralExtensions.xcodeproj */;
+				},
+				{
+					ProductGroup = 3B726846204F1591004515F2 /* Products */;
+					ProjectRef = 3B726845204F1591004515F2 /* UIExtensions.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				3B900054204DE2C10018CAE5 /* UIElements */,
@@ -185,6 +251,37 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		3B72684B204F1592004515F2 /* UIExtensions.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = UIExtensions.framework;
+			remoteRef = 3B72684A204F1592004515F2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3B72684D204F1592004515F2 /* UIExtensionsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = UIExtensionsTests.xctest;
+			remoteRef = 3B72684C204F1592004515F2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3B72685D204F1729004515F2 /* GeneralExtensions.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = GeneralExtensions.framework;
+			remoteRef = 3B72685C204F1729004515F2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3B72685F204F1729004515F2 /* GeneralExtensionsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = GeneralExtensionsTests.xctest;
+			remoteRef = 3B72685E204F1729004515F2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		3B900053204DE2C10018CAE5 /* Resources */ = {
