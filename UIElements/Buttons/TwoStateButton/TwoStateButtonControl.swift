@@ -2,7 +2,7 @@ import UIKit
 import UIExtensions
 
 @IBDesignable
-public final class TwoStateButton: UIControl {
+public final class TwoStateButtonControl: UIControl {
     
     @IBOutlet weak var button: UIButton!
     

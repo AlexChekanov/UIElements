@@ -7,14 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3B0E5AAE20507040003FB12E /* TextViewField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0E5AAD20507040003FB12E /* TextViewField.swift */; };
-		3B0E5ABA205074DA003FB12E /* TextViewField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B0E5AB9205074DA003FB12E /* TextViewField.xib */; };
+		3B0E5AAE20507040003FB12E /* TextViewFieldControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0E5AAD20507040003FB12E /* TextViewFieldControl.swift */; };
+		3B0E5ABA205074DA003FB12E /* TextViewFieldControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B0E5AB9205074DA003FB12E /* TextViewFieldControl.xib */; };
 		3B0E5AC220507611003FB12E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B0E5ABD20507611003FB12E /* Assets.xcassets */; };
-		3B1BECB5204F57920040018A /* TwoStateButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B1BECB4204F57920040018A /* TwoStateButton.xib */; };
+		3B177E602053442500C6835B /* VerticalButtonControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B177E5F2053442500C6835B /* VerticalButtonControl.swift */; };
+		3B1A1A582055AEE100B480FB /* VerticalButtonControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B1A1A572055AEE000B480FB /* VerticalButtonControl.xib */; };
+		3B1BECB5204F57920040018A /* TwoStateButtonControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B1BECB4204F57920040018A /* TwoStateButtonControl.xib */; };
 		3B726851204F162C004515F2 /* UIExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B72684B204F1592004515F2 /* UIExtensions.framework */; };
 		3B90005F204DE2C10018CAE5 /* UIElements.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B900055204DE2C10018CAE5 /* UIElements.framework */; };
 		3B900064204DE2C10018CAE5 /* UIElementsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B900063204DE2C10018CAE5 /* UIElementsTests.swift */; };
-		3BA139FB204DE40500213EB6 /* TwoStateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA139FA204DE40500213EB6 /* TwoStateButton.swift */; };
+		3BA139FB204DE40500213EB6 /* TwoStateButtonControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA139FA204DE40500213EB6 /* TwoStateButtonControl.swift */; };
+		3BCD145420530E36005F98D2 /* ButtonsCarouselControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BCD145320530E36005F98D2 /* ButtonsCarouselControl.xib */; };
+		3BCD145620530E84005F98D2 /* ButtonsCarouselControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCD145520530E84005F98D2 /* ButtonsCarouselControl.swift */; };
+		3BCD1469205315EA005F98D2 /* ButtonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCD1467205315EA005F98D2 /* ButtonCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,10 +61,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3B0E5AAD20507040003FB12E /* TextViewField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewField.swift; sourceTree = "<group>"; };
-		3B0E5AB9205074DA003FB12E /* TextViewField.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextViewField.xib; sourceTree = "<group>"; };
+		3B0E5AAD20507040003FB12E /* TextViewFieldControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewFieldControl.swift; sourceTree = "<group>"; };
+		3B0E5AB9205074DA003FB12E /* TextViewFieldControl.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextViewFieldControl.xib; sourceTree = "<group>"; };
 		3B0E5ABD20507611003FB12E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		3B1BECB4204F57920040018A /* TwoStateButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TwoStateButton.xib; sourceTree = "<group>"; };
+		3B177E5F2053442500C6835B /* VerticalButtonControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalButtonControl.swift; sourceTree = "<group>"; };
+		3B1A1A572055AEE000B480FB /* VerticalButtonControl.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VerticalButtonControl.xib; sourceTree = "<group>"; };
+		3B1BECB4204F57920040018A /* TwoStateButtonControl.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TwoStateButtonControl.xib; sourceTree = "<group>"; };
 		3B726845204F1591004515F2 /* UIExtensions.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UIExtensions.xcodeproj; path = ../UIExtensions/UIExtensions.xcodeproj; sourceTree = "<group>"; };
 		3B726857204F1729004515F2 /* GeneralExtensions.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GeneralExtensions.xcodeproj; path = ../GeneralExtensions/GeneralExtensions.xcodeproj; sourceTree = "<group>"; };
 		3B900055204DE2C10018CAE5 /* UIElements.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UIElements.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,7 +74,10 @@
 		3B90005E204DE2C10018CAE5 /* UIElementsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UIElementsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B900063204DE2C10018CAE5 /* UIElementsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIElementsTests.swift; sourceTree = "<group>"; };
 		3B900065204DE2C10018CAE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3BA139FA204DE40500213EB6 /* TwoStateButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoStateButton.swift; sourceTree = "<group>"; };
+		3BA139FA204DE40500213EB6 /* TwoStateButtonControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoStateButtonControl.swift; sourceTree = "<group>"; };
+		3BCD145320530E36005F98D2 /* ButtonsCarouselControl.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ButtonsCarouselControl.xib; sourceTree = "<group>"; };
+		3BCD145520530E84005F98D2 /* ButtonsCarouselControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsCarouselControl.swift; sourceTree = "<group>"; };
+		3BCD1467205315EA005F98D2 /* ButtonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,8 +103,8 @@
 		3B0E5AA620506D7E003FB12E /* TwoStateButton */ = {
 			isa = PBXGroup;
 			children = (
-				3BA139FA204DE40500213EB6 /* TwoStateButton.swift */,
-				3B1BECB4204F57920040018A /* TwoStateButton.xib */,
+				3BA139FA204DE40500213EB6 /* TwoStateButtonControl.swift */,
+				3B1BECB4204F57920040018A /* TwoStateButtonControl.xib */,
 			);
 			path = TwoStateButton;
 			sourceTree = "<group>";
@@ -102,18 +112,27 @@
 		3B0E5AAF2050706B003FB12E /* TextViewField */ = {
 			isa = PBXGroup;
 			children = (
-				3B0E5AB9205074DA003FB12E /* TextViewField.xib */,
-				3B0E5AAD20507040003FB12E /* TextViewField.swift */,
+				3B0E5AB9205074DA003FB12E /* TextViewFieldControl.xib */,
+				3B0E5AAD20507040003FB12E /* TextViewFieldControl.swift */,
 			);
 			path = TextViewField;
 			sourceTree = "<group>";
 		};
-		3B0E5AB020507077003FB12E /* Text */ = {
+		3B0E5AB020507077003FB12E /* Texts */ = {
 			isa = PBXGroup;
 			children = (
 				3B0E5AAF2050706B003FB12E /* TextViewField */,
 			);
-			path = Text;
+			path = Texts;
+			sourceTree = "<group>";
+		};
+		3B177E65205344C100C6835B /* VerticalButton */ = {
+			isa = PBXGroup;
+			children = (
+				3B177E5F2053442500C6835B /* VerticalButtonControl.swift */,
+				3B1A1A572055AEE000B480FB /* VerticalButtonControl.xib */,
+			);
+			path = VerticalButton;
 			sourceTree = "<group>";
 		};
 		3B726844204F1591004515F2 /* Frameworks */ = {
@@ -165,10 +184,10 @@
 		3B900057204DE2C10018CAE5 /* UIElements */ = {
 			isa = PBXGroup;
 			children = (
-				3B0E5ABD20507611003FB12E /* Assets.xcassets */,
-				3BA13A0D204DE5BF00213EB6 /* Button */,
 				3B900059204DE2C10018CAE5 /* Info.plist */,
-				3B0E5AB020507077003FB12E /* Text */,
+				3B0E5ABD20507611003FB12E /* Assets.xcassets */,
+				3BA13A0D204DE5BF00213EB6 /* Buttons */,
+				3B0E5AB020507077003FB12E /* Texts */,
 			);
 			path = UIElements;
 			sourceTree = "<group>";
@@ -182,12 +201,32 @@
 			path = UIElementsTests;
 			sourceTree = "<group>";
 		};
-		3BA13A0D204DE5BF00213EB6 /* Button */ = {
+		3BA13A0D204DE5BF00213EB6 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
 				3B0E5AA620506D7E003FB12E /* TwoStateButton */,
+				3BCD145720530ED0005F98D2 /* ButtonsCarousel */,
+				3B177E65205344C100C6835B /* VerticalButton */,
 			);
-			path = Button;
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		3BCD145720530ED0005F98D2 /* ButtonsCarousel */ = {
+			isa = PBXGroup;
+			children = (
+				3BCD145320530E36005F98D2 /* ButtonsCarouselControl.xib */,
+				3BCD146B205315EE005F98D2 /* Button Cell */,
+				3BCD145520530E84005F98D2 /* ButtonsCarouselControl.swift */,
+			);
+			path = ButtonsCarousel;
+			sourceTree = "<group>";
+		};
+		3BCD146B205315EE005F98D2 /* Button Cell */ = {
+			isa = PBXGroup;
+			children = (
+				3BCD1467205315EA005F98D2 /* ButtonCollectionViewCell.swift */,
+			);
+			path = "Button Cell";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -324,9 +363,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B0E5ABA205074DA003FB12E /* TextViewField.xib in Resources */,
+				3B0E5ABA205074DA003FB12E /* TextViewFieldControl.xib in Resources */,
+				3BCD145420530E36005F98D2 /* ButtonsCarouselControl.xib in Resources */,
 				3B0E5AC220507611003FB12E /* Assets.xcassets in Resources */,
-				3B1BECB5204F57920040018A /* TwoStateButton.xib in Resources */,
+				3B1BECB5204F57920040018A /* TwoStateButtonControl.xib in Resources */,
+				3B1A1A582055AEE100B480FB /* VerticalButtonControl.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,8 +385,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B0E5AAE20507040003FB12E /* TextViewField.swift in Sources */,
-				3BA139FB204DE40500213EB6 /* TwoStateButton.swift in Sources */,
+				3BCD1469205315EA005F98D2 /* ButtonCollectionViewCell.swift in Sources */,
+				3B0E5AAE20507040003FB12E /* TextViewFieldControl.swift in Sources */,
+				3BCD145620530E84005F98D2 /* ButtonsCarouselControl.swift in Sources */,
+				3B177E602053442500C6835B /* VerticalButtonControl.swift in Sources */,
+				3BA139FB204DE40500213EB6 /* TwoStateButtonControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -494,6 +538,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = UIElements/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tipsandtricks.UIElements;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -517,6 +562,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = UIElements/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tipsandtricks.UIElements;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";

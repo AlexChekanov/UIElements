@@ -7,11 +7,10 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TextViewField" customModule="TaskCard" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TextViewFieldControl" customModule="UIElements" customModuleProvider="target">
             <connections>
                 <outlet property="clearButton" destination="Y8I-83-Iud" id="9pR-w8-INR"/>
                 <outlet property="placeholderView" destination="H4b-rB-Q9t" id="duq-DT-Geo"/>
@@ -20,17 +19,17 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iN0-l3-epB" userLabel="Content View">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="306"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="z4o-0W-1Sy">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="306"/>
+                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="z4o-0W-1Sy">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iq9-am-Px8" userLabel="TextView Group">
-                            <rect key="frame" x="0.0" y="128" width="349" height="50"/>
+                            <rect key="frame" x="0.0" y="5" width="341" height="50"/>
                             <subviews>
-                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Title" textAlignment="natural" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H4b-rB-Q9t" userLabel="Placeholder View">
-                                    <rect key="frame" x="0.0" y="0.0" width="349" height="50"/>
+                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H4b-rB-Q9t" userLabel="Placeholder View">
+                                    <rect key="frame" x="0.0" y="0.0" width="341" height="50"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="textColor" red="0.66422420739999999" green="0.66424006219999998" blue="0.66423153879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -40,7 +39,7 @@
                                     </connections>
                                 </textView>
                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" restorationIdentifier="text" scrollEnabled="NO" textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PTr-KI-FZX">
-                                    <rect key="frame" x="0.0" y="0.0" width="349" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="341" height="50"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -64,10 +63,11 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RNJ-BK-0ac" userLabel="Button Group">
-                            <rect key="frame" x="357" y="144" width="18" height="18"/>
+                            <rect key="frame" x="341" y="21" width="34" height="18"/>
                             <subviews>
                                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y8I-83-Iud">
-                                    <rect key="frame" x="0.0" y="0.0" width="18" height="18"/>
+                                    <rect key="frame" x="8" y="0.0" width="18" height="18"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <accessibility key="accessibilityConfiguration" label="clear"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="Y8I-83-Iud" secondAttribute="height" multiplier="1:1" id="6Xs-JS-DFI"/>
@@ -82,9 +82,9 @@
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstItem="Y8I-83-Iud" firstAttribute="leading" secondItem="RNJ-BK-0ac" secondAttribute="leading" id="AdX-D2-QVt"/>
+                                <constraint firstItem="Y8I-83-Iud" firstAttribute="leading" secondItem="RNJ-BK-0ac" secondAttribute="leading" constant="8" id="AdX-D2-QVt"/>
                                 <constraint firstAttribute="bottom" secondItem="Y8I-83-Iud" secondAttribute="bottom" id="DQK-OM-3Lp"/>
-                                <constraint firstAttribute="trailing" secondItem="Y8I-83-Iud" secondAttribute="trailing" id="dHy-K7-DTL"/>
+                                <constraint firstAttribute="trailing" secondItem="Y8I-83-Iud" secondAttribute="trailing" constant="8" id="dHy-K7-DTL"/>
                                 <constraint firstItem="Y8I-83-Iud" firstAttribute="top" secondItem="RNJ-BK-0ac" secondAttribute="top" id="tfY-Ht-u9M"/>
                             </constraints>
                         </view>
@@ -99,7 +99,7 @@
                 <constraint firstAttribute="trailing" secondItem="z4o-0W-1Sy" secondAttribute="trailing" identifier="Stack View.trailing" id="nhs-6p-YgG"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="39.5" y="155"/>
+            <point key="canvasLocation" x="39.5" y="239"/>
         </view>
     </objects>
     <resources>
