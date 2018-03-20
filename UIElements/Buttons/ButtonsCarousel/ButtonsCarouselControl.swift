@@ -18,11 +18,7 @@ public final class ButtonsCarouselControl: UIControl {
     @IBOutlet weak var collectionViewHeight: NSLayoutConstraint!
 
     @IBInspectable var style: Int = 5
-//
-//    @IBInspectable var titleColorNormal: UIColor = .black
-//    @IBInspectable var titleColorSelected: UIColor = .black
-//    @IBInspectable var titleColorHighlighted: UIColor = .black
-//
+
     private var elementsMarginInCarousel: CGFloat = 2
     
     private var buttonCellIdentifier = "cell"
