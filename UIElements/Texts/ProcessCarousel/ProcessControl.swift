@@ -2,6 +2,75 @@ import Foundation
 import UIKit
 import Styles
 
+public protocol ProcessControlDelegate {
+    
+    func addItemToEnd()
+    func addItemAt(at index: Int)
+    func removeItem(at index: Int)
+    func rejectRemoval(at index: Int)
+    func moveItem(at fromIndex: Int, to toIndex: Int)
+}
+
+public enum ProcessControlElementState {
+    
+    case planned
+    case running
+    case suspended
+    case completed
+    case canceled
+}
+public protocol ProcessControlDataSource {
+    
+    var process: ProcessControlScript { get }
+    var styleOfScript: TextStyle { get }
+    
+    func styleOfItems(for state: ProcessControlElementState) -> (deselected: TextStyle, selected: TextStyle)
+}
+
+public protocol ProcessControlScript {
+    
+    var title: String? { get set }
+    var steps: [ProcessControlStep]? { get set }
+}
+
+public protocol ProcessControlStep {
+    
+    var title: String { get set }
+    var order: Int { get set }
+    var state: ProcessControlElementState { get set }
+    var movable: Bool { get set }
+    var removable: Bool { get set }
+}
+
+public struct ProcessToControl: ProcessControlScript {
+    
+    public var title: String?
+    public var steps: [ProcessControlStep]?
+    
+    public init(title: String?, steps: [ProcessControlStep]?){
+        self.title = title
+        self.steps = steps
+    }
+}
+
+public struct ProcessStepToControl: ProcessControlStep {
+    
+    public var title: String
+    public var order: Int
+    public var state: ProcessControlElementState
+    public var movable: Bool
+    public var removable: Bool
+    
+    public init(title: String, order: Int, state: ProcessControlElementState, movable: Bool, removable: Bool) {
+        self.title = title
+        self.order = order
+        self.state = state
+        self.movable = movable
+        self.removable = removable
+    }
+}
+
+
 @IBDesignable
 public class ProcessControl: UIControl, UIGestureRecognizerDelegate {
     
@@ -26,12 +95,25 @@ public class ProcessControl: UIControl, UIGestureRecognizerDelegate {
             return
         }
         
-        getData()
         configure()
         cleanUp()
         addLongPressObserver()
         registerNibs()
     }
+    
+    // MARK: - Inputs
+    public var delegate: ProcessControlDelegate! = nil
+    public var datasource: ProcessControlDataSource! = nil {
+        didSet {
+            buildCellSizesCache()
+        }
+    }
+    
+    @IBInspectable var arrowTintColor: UIColor = Colors.neutral
+    @IBInspectable var addTintColor: UIColor = Colors.attention
+    @IBInspectable var removeTintColor: UIColor = .darkGray
+    @IBInspectable var lockTintColor: UIColor = Colors.denial
+    @IBInspectable var acceptableWidthForTextOfOneLine: CGFloat = 60
     
     private let stepCellNibName = "StepCollectionViewCell"
     private let stepCellIdentificator = "step"
@@ -50,10 +132,9 @@ public class ProcessControl: UIControl, UIGestureRecognizerDelegate {
         
         cellWidths.removeAll()
         
-        tasks?.forEach {
+        datasource.process.steps?.forEach {
             
-            let cell = StepCollectionViewCell()
-            let cellWidth: CGFloat = cell.getCellSize(fromText: $0.title, withHeight: (collectionView.bounds.height * cellHeightCoefficient)).width
+            let cellWidth: CGFloat = StepCollectionViewCell.getCellSize(for: $0.title, style: datasource.styleOfItems(for: $0.state).deselected, height: (collectionView.bounds.height * cellHeightCoefficient), acceptableWidthForTextOfOneLine: acceptableWidthForTextOfOneLine).width
             cellWidths.append(cellWidth)
         }
     }
@@ -81,23 +162,9 @@ public class ProcessControl: UIControl, UIGestureRecognizerDelegate {
         didSet { setCollectionViewMode() }
     }
     
-    // MARK: - Inputs
-    let process = Process()
-    var tasks: [Task]? = []
-    var goal = Goal (title: nil, state: Goal.State.running, tasks: [])
-    
-    func getData() {
-        
-        goal = process.currentGoal!
-        tasks = process.currentGoal?.tasks
-        
-        buildCellSizesCache()
-    }
-    
-    
     // MARK: - Data check
     func dataExists() -> Bool {
-        return process.currentGoal != nil
+        return true //datasource.process != nil
     }
     
     // Mark: - Outputs
@@ -123,28 +190,6 @@ public class ProcessControl: UIControl, UIGestureRecognizerDelegate {
         collectionView.register(UINib(nibName: stepCellNibName, bundle: Bundle(for: type(of: self))), forCellWithReuseIdentifier: stepCellIdentificator)
         
         collectionView.register(UINib(nibName: goalViewNibName, bundle: Bundle(for: type(of: self))), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: goalViewIdentificator)
-    }
-    
-    // MARK: - Styles
-    func getStylesFor(state: Task.State) -> (deselected: TextStyle, selected: TextStyle) {
-        
-        switch state {
-            
-        case .planned:
-            return (TextStyle.taskHeadline.planned.deselected.style, TextStyle.taskHeadline.planned.selected.style)
-        case .running:
-            return (TextStyle.taskHeadline.running.deselected.style,
-                    TextStyle.taskHeadline.running.selected.style)
-        case .suspended:
-            return (TextStyle.taskHeadline.suspended.deselected.style,
-                    TextStyle.taskHeadline.suspended.selected.style)
-        case .completed:
-            return (TextStyle.taskHeadline.completed.deselected.style,
-                    TextStyle.taskHeadline.completed.selected.style)
-        case .canceled:
-            return (TextStyle.taskHeadline.canceled.deselected.style,
-                    TextStyle.taskHeadline.canceled.selected.style)
-        }
     }
     
     // MARK: - Gestures handling
@@ -235,7 +280,7 @@ extension ProcessControl: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tasks?.count ?? 0
+        return datasource.process.steps?.count ?? 0
     }
     
     // MARK: - Cells (Represent Steps)
@@ -245,10 +290,11 @@ extension ProcessControl: UICollectionViewDelegate, UICollectionViewDataSource {
     
     public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cell = cell as? StepCollectionViewCell,
-        let task = tasks?[indexPath.item] else { return }
+            let step = datasource.process.steps?[indexPath.item] else { return }
         
-        let styles = getStylesFor(state: task.state)
-        cell.configure(title: task.title, deselectedTextStyle: styles.deselected, selectedTextStyle: styles.selected, movable: task.canBeMoved, removable: task.canBeDeleted, isTheFirstCell: (indexPath.item == 0))
+        let styles = datasource.styleOfItems(for: step.state)
+        
+        cell.configure(title: step.title, deselectedTextStyle: styles.deselected, selectedTextStyle: styles.selected, movable: step.movable, removable: step.removable, isTheFirstCell: (indexPath.item == 0), arrowTintColor: arrowTintColor, addTintColor: addTintColor, removeTintColor: removeTintColor, lockTintColor: lockTintColor, delegate: self)
         cell.cellState = collectionState
         cell.tag = indexPath.item
     }
@@ -265,13 +311,15 @@ extension ProcessControl: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        return collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: goalViewIdentificator, for: indexPath)
+        return collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier:
+            goalViewIdentificator, for: indexPath)
     }
     
     public func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
-        guard let view = view as? GoalCollectionReusableView else { return }
+        guard let view = view as? ProcessCollectionReusableView else { return }
         
-        view.object = goal
+        view.configure(title: datasource.process.title, textStyle: datasource.styleOfScript, arrowTintColor: arrowTintColor, addTintColor: addTintColor, lockTintColor: lockTintColor, delegate: self, isTheOnlyElement: datasource.process.steps?.count == 0)
+        
         view.viewState = collectionState
     }
     
@@ -315,8 +363,7 @@ extension ProcessControl: UICollectionViewDelegateFlowLayout {
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         let footerHeight = collectionView.bounds.height * cellHeightCoefficient
-        let footer = GoalFooter()
-        let footerSize: CGSize = footer.getFooterSize(fromText: goal.title, withHeight: footerHeight)
+        let footerSize: CGSize = ProcessCollectionReusableView.getViewSize(for: datasource.process.title, height: footerHeight, style: datasource.styleOfScript, acceptableWidthForTextOfOneLine: acceptableWidthForTextOfOneLine)
         
         return footerSize
     }
@@ -337,18 +384,15 @@ extension ProcessControl {
         if self.longPressGestureRecognizer.state == .ended {
             
             // Update external data
-            cellWidths = cellWidthTemporal!
+            cellWidths = cellWidthTemporal ?? []
             cellWidthTemporal = nil
-            
-            process.moveItem(at: sourceIndexPath.item, to: destinationIndexPath.item)
-            tasks = (process.currentGoal?.tasks)!
-            
+            delegate.moveItem(at: sourceIndexPath.item, to: destinationIndexPath.item)
             return
             
         } else {
-            
-            let temp = cellWidthTemporal!.remove(at: sourceIndexPath.item)
-            cellWidthTemporal!.insert(temp, at: destinationIndexPath.item)
+            if let temp = cellWidthTemporal?.remove(at: sourceIndexPath.item) {
+                cellWidthTemporal?.insert(temp, at: destinationIndexPath.item)
+            }
         }
     }
 }
@@ -378,13 +422,15 @@ extension UICollectionViewFlowLayout {
         return super.invalidationContextForEndingInteractiveMovementOfItems(toFinalIndexPaths: indexPaths, previousIndexPaths: previousIndexPaths, movementCancelled: movementCancelled)
     }
     
-    override open func layoutAttributesForInteractivelyMovingItem(at indexPath: IndexPath, withTargetPosition position: CGPoint) -> UICollectionViewLayoutAttributes {
-        let attributes = super.layoutAttributesForInteractivelyMovingItem(at: indexPath, withTargetPosition: position)
-        
-        attributes.alpha = 0.6
-        
-        return attributes
-    }
+    /* Add interactively moving item attributes if needed
+     override open func layoutAttributesForInteractivelyMovingItem(at indexPath: IndexPath, withTargetPosition position: CGPoint) -> UICollectionViewLayoutAttributes {
+     let attributes = super.layoutAttributesForInteractivelyMovingItem(at: indexPath, withTargetPosition: position)
+     
+     attributes.alpha = 0.6
+     
+     return attributes
+     }
+     */
 }
 
 // MARK: - Rotation & Trait collection change
@@ -405,7 +451,7 @@ extension ProcessControl {
     }
 }
 
-// Mark: - Service methods
+// MARK: - Service methods
 extension ProcessControl {
     
     func performBatchUpdates() {
@@ -413,7 +459,6 @@ extension ProcessControl {
         self.collectionView.performBatchUpdates(
             { [weak self] in self?.collectionView.reloadSections(NSIndexSet(index: 0) as IndexSet)
             }, completion: { (finished:Bool) -> Void in
-                
         })
     }
     
@@ -430,7 +475,7 @@ extension ProcessControl {
         }
         
         collectionView.visibleSupplementaryViews(ofKind: UICollectionElementKindSectionFooter).forEach {
-            guard let footer = $0 as? GoalCollectionReusableView else { return }
+            guard let footer = $0 as? ProcessCollectionReusableView else { return }
             footer.viewState = collectionState
         }
         
@@ -438,5 +483,27 @@ extension ProcessControl {
             guard let header = $0 as? HeaderCollectionReusableView else { return }
             header.viewState = collectionState
         }
+    }
+}
+
+// MARK: - Actions delegate
+extension ProcessControl: StepCollectionViewCellDelegate {
+    
+    func serviceButtonPressed(at index: Int) {
+        
+        guard collectionState == .editing else { return }
+        delegate.addItemAt(at: index)
+    }
+    
+    func removeButtonPressed(at index: Int, removable: Bool) {
+        
+        guard collectionState == .editing else { return }
+        removable ? delegate.removeItem(at: index) : delegate.rejectRemoval(at: index)
+    }
+}
+
+extension ProcessControl: ProcessCollectionReusableViewDelegate {
+    func serviceButtonPressed() {
+        delegate.addItemToEnd()
     }
 }

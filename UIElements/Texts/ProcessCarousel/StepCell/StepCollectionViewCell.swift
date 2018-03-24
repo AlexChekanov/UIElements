@@ -1,9 +1,20 @@
 import UIKit
 import Styles
+import UIExtensions
+
+protocol StepCollectionViewCellDelegate {
+    
+    func serviceButtonPressed(at index: Int)
+    func removeButtonPressed(at index: Int, removable: Bool)
+}
 
 class StepCollectionViewCell: UICollectionViewCell {
     
-    // MARK: - Cell Elements
+    // MARK: - Setup
+    // Constants
+    private let bundle = Bundle(for: StepCollectionViewCell.self)
+    static private let constantElementsWidth: CGFloat = 72 + 1
+    
     // Outlets
     @IBOutlet private weak var titleLabel: UILabel!
     
@@ -15,7 +26,94 @@ class StepCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet private weak var labelFrameView: UIView!
     
+    // Input
+    var movable: Bool = true
+    var removable: Bool = true
+    var isTheFirstCell: Bool = false
     
+    private var title: NSMutableAttributedString? = nil
+    private var arrowTintColor: UIColor = .lightGray
+    private var addTintColor: UIColor = .lightGray
+    private var removeTintColor: UIColor = .lightGray
+    private var lockTintColor: UIColor = .darkRed
+    private var delegate: StepCollectionViewCellDelegate! = nil
+    
+    // Styles
+    private var acceptableWidthForTextOfOneLine: CGFloat = 60.0
+    private var deselectedTextStyle: TextStyle!
+    private var selectedTextStyle: TextStyle!
+    
+    // Configuration
+    func configure(title: String,
+                   deselectedTextStyle: TextStyle,
+                   selectedTextStyle: TextStyle,
+                   movable: Bool,
+                   removable: Bool,
+                   isTheFirstCell: Bool,
+                   arrowTintColor: UIColor,
+                   addTintColor: UIColor,
+                   removeTintColor: UIColor,
+                   lockTintColor: UIColor,
+                   delegate: StepCollectionViewCellDelegate
+        ){
+        
+        self.title = NSMutableAttributedString(string: title)
+        self.deselectedTextStyle = deselectedTextStyle
+        self.selectedTextStyle = selectedTextStyle
+        self.movable = movable
+        self.removable = removable
+        self.isTheFirstCell = isTheFirstCell
+        self.arrowTintColor = arrowTintColor
+        self.addTintColor = addTintColor
+        self.removeTintColor = removeTintColor
+        self.lockTintColor = lockTintColor
+        self.delegate = delegate
+        
+        updateCellState()
+    }
+    
+    override var isSelected: Bool {
+        didSet { updateTitle() }
+    }
+    
+    private func configureTitleLabel() {
+        titleLabel.adjustsFontForContentSizeCategory = true
+    }
+    
+    private func configureTitleFrame() {
+    }
+    
+    private func configureServiceButton() {
+        
+        //serviceButton.imageEdgeInsets = UIEdgeInsetsMake(12.0, 12.0, 12.0, 12.0)
+        serviceButton.imageView?.contentMode = .scaleAspectFit
+    }
+    
+    private func configureRemoveButton() {
+        
+        //removeButton.imageEdgeInsets = UIEdgeInsetsMake(12.0, 12.0, 12.0, 12.0)
+        removeButton.imageView?.contentMode = .scaleAspectFit
+    }
+    
+    // MARK: - Controller
+    var cellState: ProcessControl.CollectionState = .normal {
+        didSet {
+            updateCellState()
+        }
+    }
+    
+    // MARK: - CleanUp
+    private func cleanUp(){
+        
+        serviceButtonState = .hidden
+        removeButtonState = .hidden
+        labelFrameState = .hidden
+        self.isSelected = false
+        self.isTheFirstCell = false
+    }
+    
+    
+    // MARK: - States
     // Service button states
     private enum ServiceButtonState {
         
@@ -24,8 +122,6 @@ class StepCollectionViewCell: UICollectionViewCell {
         case hidden
     }
     
-    private let bundle = Bundle(for: StepCollectionViewCell.self)
-    
     private var serviceButtonState: ServiceButtonState = .arrow {
         
         didSet {
@@ -33,30 +129,20 @@ class StepCollectionViewCell: UICollectionViewCell {
             switch serviceButtonState {
                 
             case .arrow:
-                
-                if isTheFirstCell {
-                    
-                    serviceButton.isHidden = true
-                    
-                } else {
-                    
-                    //serviceButton.fadeOut(duration: 0.4)
-                    serviceButton.isHidden = false
-                    
-                    serviceButton.setImage(UIImage(named: "arrow", in: bundle, compatibleWith: nil), for: .normal)
-                    serviceButton.tintColor = neutralColor.withAlphaComponent(0.8)
-                    serviceButton.isUserInteractionEnabled = false
-                    //serviceButton.fadeIn(duration: 0.4)
-                }
+                serviceButton.setImage(UIImage(named: "arrow", in: bundle, compatibleWith: nil), for: .normal)
+                // Hide if is the first cell
+                serviceButton.isHidden = isTheFirstCell
+                serviceButton.tintColor = arrowTintColor
+                serviceButton.isUserInteractionEnabled = false
                 
             case .add:
-                //serviceButton.fadeOut(duration: 0.4)
                 serviceButton.setImage(UIImage(named: "add", in: bundle, compatibleWith: nil), for: .normal)
-                serviceButton.tintColor = neutralColor.withAlphaComponent(0.8)
+                serviceButton.isHidden = false
+                serviceButton.tintColor = addTintColor
                 serviceButton.isUserInteractionEnabled = true
-                //serviceButton.fadeIn(duration: 0.4)
+                
             case .hidden:
-                //serviceButton.fadeOut(duration: 0.4)
+                serviceButton.setImage(nil, for: .normal)
                 serviceButton.isHidden = true
             }
         }
@@ -67,6 +153,7 @@ class StepCollectionViewCell: UICollectionViewCell {
         
         case x
         case lock
+        case anchor
         case hidden
     }
     
@@ -77,37 +164,52 @@ class StepCollectionViewCell: UICollectionViewCell {
             switch removeButtonState {
                 
             case .x:
-                removeButton.fadeOut(duration: 0.4)
                 removeButton.setImage(UIImage(named: "cancel", in: bundle, compatibleWith: nil), for: .normal)
-                removeButton.tintColor = neutralColor.withAlphaComponent(0.8)
-                serviceButton.isUserInteractionEnabled = true
-                removeButton.fadeIn(duration: 0.4)
+                removeButton.isHidden = false
+                removeButton.tintColor = removeTintColor
+                removeButton.isUserInteractionEnabled = true
+                
+            case .anchor:
+                removeButton.setImage(UIImage(named: "anchor", in: bundle, compatibleWith: nil), for: .normal)
+                removeButton.isHidden = false
+                removeButton.tintColor = lockTintColor
+                removeButton.isUserInteractionEnabled = false
+                
             case .lock:
-                removeButton.fadeOut(duration: 0.4)
                 removeButton.setImage(UIImage(named: "lock", in: bundle, compatibleWith: nil), for: .normal)
-                removeButton.tintColor = denialColor.withAlphaComponent(0.8)
-                serviceButton.isUserInteractionEnabled = true
-                removeButton.fadeIn(duration: 0.4)
+                removeButton.isHidden = false
+                removeButton.tintColor = lockTintColor
+                removeButton.isUserInteractionEnabled = true
+                
             case .hidden:
-                removeButton.fadeOut(duration: 0.4)
                 removeButton.isHidden = true
+                removeButton.setImage(nil, for: .normal)
             }
         }
     }
     
-    // MARK: - CleanUp
-    private func cleanUp(){
-        
-        
+    // Label Frame State
+    private enum LabelFrameState {
+        case visible
+        case hidden
     }
     
-    // MARK: - Controller
-    var cellState: ProcessControl.CollectionState = .normal {
+    private var labelFrameState: LabelFrameState = .hidden {
+        
         didSet {
-            updateCellState()
+            
+            switch labelFrameState {
+                
+            case .visible:
+                labelFrameView.isHidden = false
+                
+            case .hidden:
+                labelFrameView.isHidden = true
+            }
         }
     }
     
+    // MARK: - Update
     private func updateServiceButtonState() {
         
         switch cellState {
@@ -130,122 +232,66 @@ class StepCollectionViewCell: UICollectionViewCell {
         case .editing:
             removeButtonState = removable ? .x : .lock
         case .rearrangement:
-            removeButtonState = movable ? .hidden : .lock
+            removeButtonState = movable ? .hidden : .anchor
         }
     }
     
-    func updateCellState() {
+    private func updateLabelFrameState() {
+        
+        switch cellState {
+            
+        case .normal:
+            labelFrameState = .hidden
+        case .editing:
+            labelFrameState = .visible
+        case .rearrangement:
+            labelFrameState = .visible
+        }
+    }
+    
+    private func updateTitle () {
+        
+        title?.applyAttributes(ofStyle: isSelected ? selectedTextStyle : deselectedTextStyle)
+        titleLabel.attributedText = title
+    }
+    
+    private func updateCellState() {
         
         updateServiceButtonState()
         updateRemoveButtonState()
+        updateLabelFrameState()
         updateTitle()
         
         cellState != .normal ? mainView.shakeOn() : mainView.shakeOff()
     }
     
-    // Input
-    func configure(title: String,
-                   deselectedTextStyle: TextStyle,
-                   selectedTextStyle: TextStyle,
-                   movable: Bool,
-                   removable: Bool,
-                   isTheFirstCell: Bool){
-        
-        self.title = NSMutableAttributedString(string: title)
-        self.deselectedTextStyle = deselectedTextStyle
-        self.selectedTextStyle = selectedTextStyle
-        self.movable = movable
-        self.removable = removable
-        self.isTheFirstCell = isTheFirstCell
-        
-        updateCellState()
-    }
     
-    var movable: Bool = true
-    var removable: Bool = true
-    var isTheFirstCell: Bool = false
-    
-    private var deselectedTextStyle: TextStyle = TextStyle.taskHeadline.running.deselected.style
-    private var selectedTextStyle: TextStyle = TextStyle.taskHeadline.running.selected.style
-    
-    private var title: NSMutableAttributedString? = nil
-    
-    //MARK: - Overrides
+    //MARK: - Lifesycle
     override internal func awakeFromNib() {
         super.awakeFromNib()
         
         configureServiceButton()
         configureRemoveButton()
         configureTitleLabel()
+        configureTitleFrame()
     }
     
     override internal func prepareForReuse() {
-        //cleanUp()
+        cleanUp()
     }
-    
-    override var isSelected: Bool {
-        
-        didSet {
-            updateTitle()
-        }
-    }
-    
-    func updateTitle () {
-        
-        if isSelected {
-            
-            title?.applyAttributes(ofStyle: selectedTextStyle)
-            
-        } else {
-            title?.applyAttributes(ofStyle: deselectedTextStyle)
-        }
-        titleLabel.attributedText = title
-    }
-        
-    // MARK: - Elements view configuration
-    private let constantElementsWidth: CGFloat = 68
-    
-    
-    // Styles
-    private let attentionColor = Colors.attention.withAlphaComponent(0.8)
-    private let denialColor = Colors.denial.withAlphaComponent(0.8)
-    private let neutralColor = Colors.neutral.withAlphaComponent(0.8)
-    
-    let textStyleForCalculations = TextStyle.taskHeadline.completed.selected.style
-    let acceptableWidthForTextOfOneLine: CGFloat = 60.0
-    
-    
-    func configureTitleLabel() {
-        
-        titleLabel.adjustsFontForContentSizeCategory = true
-    }
-    
-    private func configureServiceButton() {
-        
-        //serviceButton.imageEdgeInsets = UIEdgeInsetsMake(12.0, 12.0, 12.0, 12.0)
-        serviceButton.imageView?.contentMode = .scaleAspectFit
-    }
-    
-    private func configureRemoveButton() {
-        
-        removeButton.shadowStyle = Shadow.soft
-        //removeButton.imageEdgeInsets = UIEdgeInsetsMake(12.0, 12.0, 12.0, 12.0)
-        removeButton.imageView?.contentMode = .scaleAspectFit
-    }
-    
     
     //MARK: - Instruments
     
-    func getCellSize (fromText text: String?, withHeight height: CGFloat) -> CGSize {
+    static func getCellSize(for text: String?, style: TextStyle, height: CGFloat, acceptableWidthForTextOfOneLine: CGFloat) -> CGSize {
         
         var cellSize = CGSize(width: constantElementsWidth, height: height)
         
         if let text = text {
             
-            let labelMaximumHeight = height - 36
+            let labelMaximumHeight = height - 1 - 44
             
             let labelFromTheTextWithOptimalWidth =
-                UILabel(text: text, style: textStyleForCalculations, maximumHeight: labelMaximumHeight, constantElementsWidth: 0, acceptableWidthForTextOfOneLine: acceptableWidthForTextOfOneLine)
+                UILabel(text: text, style: style, maximumHeight: labelMaximumHeight, constantElementsWidth: 0, acceptableWidthForTextOfOneLine: acceptableWidthForTextOfOneLine)
             
             cellSize.width += labelFromTheTextWithOptimalWidth.bounds.width
         }
@@ -257,12 +303,14 @@ class StepCollectionViewCell: UICollectionViewCell {
     //MARK: - Actions
     @IBAction private func serviceButtonPressed(_ sender: UIButton) {
         
-        print("pressed service button for cell #\(tag) while in \(cellState) state")
+        sender.blink(duration: 0.2)
+        delegate.serviceButtonPressed(at: tag)
     }
     
     @IBAction private func removeButtonPressed(_ sender: UIButton) {
         
-        print("pressed remove button for cell #\(tag) while in \(cellState) state")
+        sender.blink(duration: 0.2)
+        delegate.removeButtonPressed(at: tag, removable: removable)
     }
     
 }

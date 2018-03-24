@@ -1,11 +1,3 @@
-//
-//  HeaderCollectionReusableView.swift
-//  UIElements
-//
-//  Created by Alexey Chekanov on 3/17/18.
-//  Copyright © 2018 Tips & Tricks, LLC. All rights reserved.
-//
-
 import UIKit
 
 class HeaderCollectionReusableView: UICollectionReusableView {
@@ -27,7 +19,8 @@ class HeaderCollectionReusableView: UICollectionReusableView {
     }
     
     func setViewToNormalMode() {}
-    func setViewToEditingMode(){}
+    func setViewToEditingMode() {}
     func setViewToRearrangementMode() {}
 }
+
 
