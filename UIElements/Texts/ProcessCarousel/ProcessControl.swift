@@ -8,6 +8,8 @@ public protocol ProcessControlDelegate {
     func addItemAt(at index: Int)
     func removeItem(at index: Int)
     func rejectRemoval(at index: Int)
+    func editItem(at index: Int)
+    func editScript()
     func moveItem(at fromIndex: Int, to toIndex: Int)
 }
 
@@ -70,7 +72,7 @@ public struct ProcessStepToControl: ProcessControlStep {
     }
 }
 
-
+// MARK: - Class
 @IBDesignable
 public class ProcessControl: UIControl, UIGestureRecognizerDelegate {
     
@@ -199,6 +201,7 @@ public class ProcessControl: UIControl, UIGestureRecognizerDelegate {
         longPressGestureRecognizer.addTarget(self, action: #selector(handleLongPress(_:)))
         longPressGestureRecognizer.minimumPressDuration = 0.6
         longPressGestureRecognizer.delegate = self
+        longPressGestureRecognizer.requiresExclusiveTouchType = true
         longPressGestureRecognizer.delaysTouchesBegan = false
         self.collectionView.addGestureRecognizer(longPressGestureRecognizer)
     }
@@ -500,10 +503,18 @@ extension ProcessControl: StepCollectionViewCellDelegate {
         guard collectionState == .editing else { return }
         removable ? delegate.removeItem(at: index) : delegate.rejectRemoval(at: index)
     }
+    
+    func labelDoubleTapped(at index: Int, with gestureRecognizer: UIGestureRecognizer) {
+        delegate.editItem(at: index)
+    }
 }
 
 extension ProcessControl: ProcessCollectionReusableViewDelegate {
     func serviceButtonPressed() {
         delegate.addItemToEnd()
+    }
+    
+    func labelDoubleTapped() {
+        delegate.editScript()
     }
 }

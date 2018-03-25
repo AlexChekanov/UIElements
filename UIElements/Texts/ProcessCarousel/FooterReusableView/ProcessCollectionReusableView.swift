@@ -5,6 +5,7 @@ import UIExtensions
 protocol ProcessCollectionReusableViewDelegate {
     
     func serviceButtonPressed()
+    func labelDoubleTapped()
 }
 
 class ProcessCollectionReusableView: UICollectionReusableView {
@@ -17,11 +18,13 @@ class ProcessCollectionReusableView: UICollectionReusableView {
     
     // Outlets
     @IBOutlet private weak var titleLabel: UILabel!
-    
     @IBOutlet private weak var serviceButton: UIButton!
-    
     @IBOutlet private weak var mainView: UIView!
     @IBOutlet private weak var serviceView: UIView!
+    
+    // Constraints
+    @IBOutlet private weak var titleLabelTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var titleLabelLeadingConstraint: NSLayoutConstraint!
     
     // Input
     var removable: Bool = true
@@ -38,7 +41,6 @@ class ProcessCollectionReusableView: UICollectionReusableView {
     // Styles
     private var acceptableWidthForTextOfOneLine: CGFloat = 60.0
     private var textStyle: TextStyle!
-    
     
     // Configuration
     func configure(title: String?,
@@ -82,6 +84,15 @@ class ProcessCollectionReusableView: UICollectionReusableView {
         serviceButtonState = .hidden
     }
     
+    // MARK: - Gestures
+    private func configureDoubleTap() {
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(doubleTapped(_:)))
+        tap.cancelsTouchesInView = true
+        tap.numberOfTapsRequired = 2
+        tap.requiresExclusiveTouchType = true
+        titleLabel.addGestureRecognizer(tap)
+    }
     
     // MARK: - States
     // Service button states
@@ -140,18 +151,23 @@ class ProcessCollectionReusableView: UICollectionReusableView {
         
         title?.applyAttributes(ofStyle: textStyle)
         titleLabel.attributedText = title
+        
+        // Disable constraints if nil
+        guard titleLabelLeadingConstraint != nil, titleLabelTrailingConstraint != nil else { return }
+        titleLabelLeadingConstraint.isActive = !isEmpty
+        titleLabelTrailingConstraint.isActive = !isEmpty
     }
     
     private func updateViewState() {
-        
         updateServiceButtonState()
         updateTitle()
     }
     
-    
     // MARK: - Lifesycle
     override internal func awakeFromNib() {
         super.awakeFromNib()
+        
+        configureDoubleTap()
         
         configureServiceButton()
         configureTitleLabel()
@@ -162,7 +178,7 @@ class ProcessCollectionReusableView: UICollectionReusableView {
     }
     
     // MARK: - Instruments
-    
+    // Size
     static func getViewSize(for text: String?, height: CGFloat, style: TextStyle, acceptableWidthForTextOfOneLine: CGFloat) -> CGSize {
         
         var viewSize = CGSize(width: constantElementsWidth, height: height)
@@ -179,11 +195,21 @@ class ProcessCollectionReusableView: UICollectionReusableView {
         
         return viewSize
     }
-    
-    // MARK: - Actions
+}
+
+// MARK: - Actions
+extension ProcessCollectionReusableView {
+ 
     @IBAction private func serviceButtonPressed(_ sender: UIButton) {
-        
         sender.blink(duration: 0.2)
         delegate.serviceButtonPressed()
+    }
+    
+    // Double Tap
+    @objc private func doubleTapped(_ sender: UITapGestureRecognizer) {
+        
+        if sender.state == .ended {
+            delegate.labelDoubleTapped()
+        }
     }
 }

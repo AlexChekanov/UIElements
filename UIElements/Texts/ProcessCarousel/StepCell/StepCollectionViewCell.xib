@@ -20,29 +20,6 @@
                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xjV-Ds-PH8" userLabel="Content View">
                         <rect key="frame" x="0.0" y="0.0" width="275" height="95"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qfC-5f-SlR" userLabel="Service View">
-                                <rect key="frame" x="0.0" y="0.0" width="42" height="95"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="do9-rd-9nm" userLabel="Service Button">
-                                        <rect key="frame" x="14" y="33" width="28" height="28"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="28" id="9vU-wi-aUK"/>
-                                            <constraint firstAttribute="width" constant="28" id="IHq-Qz-TIn"/>
-                                        </constraints>
-                                        <state key="normal" image="add"/>
-                                        <connections>
-                                            <action selector="serviceButtonPressed:" destination="gTV-IL-0wX" eventType="touchUpInside" id="idg-jC-zn8"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="do9-rd-9nm" firstAttribute="leading" secondItem="qfC-5f-SlR" secondAttribute="leading" constant="14" id="Kaq-8a-PYG"/>
-                                    <constraint firstAttribute="trailing" secondItem="do9-rd-9nm" secondAttribute="trailing" id="KeB-uc-UPq"/>
-                                    <constraint firstAttribute="width" constant="42" id="oIi-gY-KNJ"/>
-                                    <constraint firstItem="do9-rd-9nm" firstAttribute="centerY" secondItem="qfC-5f-SlR" secondAttribute="centerY" id="w0W-NC-5Xn"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZlA-ix-aep" userLabel="Main View">
                                 <rect key="frame" x="42" y="0.0" width="233" height="95"/>
                                 <subviews>
@@ -64,9 +41,10 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="dr9-Og-Ox9">
+                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="dr9-Og-Ox9">
                                         <rect key="frame" x="22" y="22" width="203" height="51"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <gestureRecognizers/>
                                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -95,6 +73,29 @@
                                     <constraint firstItem="3bx-3S-uzh" firstAttribute="top" secondItem="ZlA-ix-aep" secondAttribute="top" id="nqZ-VJ-ore"/>
                                     <constraint firstItem="NIW-rb-McX" firstAttribute="top" secondItem="ZlA-ix-aep" secondAttribute="top" constant="14" id="tfq-rH-nWi"/>
                                     <constraint firstItem="dr9-Og-Ox9" firstAttribute="top" secondItem="NIW-rb-McX" secondAttribute="top" constant="8" id="uTh-nf-GMf"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qfC-5f-SlR" userLabel="Service View">
+                                <rect key="frame" x="0.0" y="0.0" width="42" height="95"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="do9-rd-9nm" userLabel="Service Button">
+                                        <rect key="frame" x="14" y="33" width="28" height="28"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="28" id="9vU-wi-aUK"/>
+                                            <constraint firstAttribute="width" constant="28" id="IHq-Qz-TIn"/>
+                                        </constraints>
+                                        <state key="normal" image="add"/>
+                                        <connections>
+                                            <action selector="serviceButtonPressed:" destination="gTV-IL-0wX" eventType="touchUpInside" id="idg-jC-zn8"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="do9-rd-9nm" firstAttribute="leading" secondItem="qfC-5f-SlR" secondAttribute="leading" constant="14" id="Kaq-8a-PYG"/>
+                                    <constraint firstAttribute="trailing" secondItem="do9-rd-9nm" secondAttribute="trailing" id="KeB-uc-UPq"/>
+                                    <constraint firstAttribute="width" constant="42" id="oIi-gY-KNJ"/>
+                                    <constraint firstItem="do9-rd-9nm" firstAttribute="centerY" secondItem="qfC-5f-SlR" secondAttribute="centerY" id="w0W-NC-5Xn"/>
                                 </constraints>
                             </view>
                         </subviews>

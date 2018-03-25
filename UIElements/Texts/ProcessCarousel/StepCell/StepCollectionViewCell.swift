@@ -6,6 +6,7 @@ protocol StepCollectionViewCellDelegate {
     
     func serviceButtonPressed(at index: Int)
     func removeButtonPressed(at index: Int, removable: Bool)
+    func labelDoubleTapped(at index: Int, with gestureRecognizer: UIGestureRecognizer)
 }
 
 class StepCollectionViewCell: UICollectionViewCell {
@@ -112,6 +113,15 @@ class StepCollectionViewCell: UICollectionViewCell {
         self.isTheFirstCell = false
     }
     
+    // MARK: - Gestures
+    private func configureDoubleTap() {
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(doubleTapped(_:)))
+        tap.cancelsTouchesInView = true
+        tap.numberOfTapsRequired = 2
+        tap.requiresExclusiveTouchType = true
+        titleLabel.addGestureRecognizer(tap)
+    }
     
     // MARK: - States
     // Service button states
@@ -270,6 +280,8 @@ class StepCollectionViewCell: UICollectionViewCell {
     override internal func awakeFromNib() {
         super.awakeFromNib()
         
+        configureDoubleTap()
+        
         configureServiceButton()
         configureRemoveButton()
         configureTitleLabel()
@@ -281,7 +293,7 @@ class StepCollectionViewCell: UICollectionViewCell {
     }
     
     //MARK: - Instruments
-    
+    // Size
     static func getCellSize(for text: String?, style: TextStyle, height: CGFloat, acceptableWidthForTextOfOneLine: CGFloat) -> CGSize {
         
         var cellSize = CGSize(width: constantElementsWidth, height: height)
@@ -298,8 +310,9 @@ class StepCollectionViewCell: UICollectionViewCell {
         
         return cellSize
     }
-    
-    
+}
+
+extension StepCollectionViewCell {
     //MARK: - Actions
     @IBAction private func serviceButtonPressed(_ sender: UIButton) {
         
@@ -313,4 +326,12 @@ class StepCollectionViewCell: UICollectionViewCell {
         delegate.removeButtonPressed(at: tag, removable: removable)
     }
     
+    // Double Tap
+    @objc private func doubleTapped(_ sender: UITapGestureRecognizer) {
+        if sender.state == .ended {
+            delegate.labelDoubleTapped(at: tag, with: sender)
+        }
+    }
 }
+
+

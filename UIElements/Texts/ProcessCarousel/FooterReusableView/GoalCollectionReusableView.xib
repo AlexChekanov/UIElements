@@ -43,7 +43,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VYt-o6-cW2" userLabel="Main View">
                             <rect key="frame" x="42" y="0.0" width="278" height="140"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="3da-9I-eCX">
+                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="3da-9I-eCX">
                                     <rect key="frame" x="14" y="28" width="244" height="84"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
@@ -83,6 +83,8 @@
                 <outlet property="serviceButton" destination="kut-sy-O7m" id="ofl-DI-VFd"/>
                 <outlet property="serviceView" destination="XQB-ie-qda" id="4wH-35-awH"/>
                 <outlet property="titleLabel" destination="3da-9I-eCX" id="tuT-7S-faO"/>
+                <outlet property="titleLabelLeadingConstraint" destination="znV-Qv-Rd7" id="0kq-ag-Xjr"/>
+                <outlet property="titleLabelTrailingConstraint" destination="vSD-QY-qNw" id="sBk-k0-mP0"/>
             </connections>
             <point key="canvasLocation" x="34" y="99"/>
         </collectionReusableView>
